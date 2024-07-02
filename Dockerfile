@@ -1,16 +1,17 @@
 FROM alpine:latest
 
-MAINTAINER Troy Kelly <troy.kelly@really.ai>
+MAINTAINER Stefan Pejcic <stefan@pejcic.rs>
 
-ENV VERSION=1.20.0
-ENV OPENSSL_VERSION=1.1.1k
-ENV LIBPNG_VERSION=1.6.37
-ENV LUAJIT_VERSION=2.0.5
+ENV VERSION=1.27.0
+ENV OPENSSL_VERSION=3.0.14
+ENV LIBPNG_VERSION=1.6.44
+ENV LUAJIT_VERSION=5.4.7
 ENV NGXDEVELKIT_VERSION=0.3.1
-ENV NGXLUA_VERSION=0.10.19
+ENV NGXLUA_VERSION=0.10.25
 ENV MODSECURITY=3
-ENV OWASPCRS_VERSION=3.3.0
+ENV OWASPCRS_VERSION=4.4.0
 ENV PYTHON_VERSION=3.9.0
+
 
 # Build-time metadata as defined at http://label-schema.org
 ARG BUILD_DATE
@@ -35,6 +36,7 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
 RUN build_pkgs="alpine-sdk apr-dev apr-util-dev autoconf automake binutils-gold curl curl-dev g++ gcc geoip-dev git gnupg icu-dev libcurl libffi-dev libjpeg-turbo-dev libstdc++ libtool libxml2-dev linux-headers lmdb-dev m4 make openssh-client pcre-dev pcre2-dev perl pkgconf wget yajl-dev zlib-dev" && \
   runtime_pkgs="ca-certificates pcre apr-util libjpeg-turbo icu icu-libs yajl lua geoip libxml2 lua5.3-maxminddb libffi" && \
   apk add --update --no-cache ${build_pkgs} ${runtime_pkgs} && \
+  apl add tar && \
   mkdir -p /src /var/log/nginx /run/nginx /var/cache/nginx && \
   addgroup nginx && \
   adduser -s /usr/sbin/nologin -G nginx -D nginx && \
@@ -48,7 +50,7 @@ RUN build_pkgs="alpine-sdk apr-dev apr-util-dev autoconf automake binutils-gold 
   echo "Fetching LibPNG Source" && \
   wget -qO - http://prdownloads.sourceforge.net/libpng/libpng-${LIBPNG_VERSION}.tar.gz | tar xzf  - -C /src && \
   echo "Fetching LUA Jit Source" && \
-  wget -qO - http://luajit.org/download/LuaJIT-${LUAJIT_VERSION}.tar.gz | tar xzf  - -C /src && \
+  wget -qO - https://www.lua.org/ftp/lua-${LUAJIT_VERSION}.tar.gz | tar xzf  - -C /src && \
   echo "Fetching NGX Devel Kit Source" && \
   wget -qO - https://github.com/vision5/ngx_devel_kit/archive/refs/tags/v${NGXDEVELKIT_VERSION}.tar.gz | tar xzf  - -C /src && \
   echo "Fetching LUA Nginx Source" && \
