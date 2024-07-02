@@ -4,7 +4,7 @@ MAINTAINER Stefan Pejcic <stefan@pejcic.rs>
 
 ENV VERSION=1.27.0
 ENV OPENSSL_VERSION=3.0.14
-ENV LIBPNG_VERSION=1.6.44
+ENV LIBPNG_VERSION=1.6.43
 ENV LUAJIT_VERSION=5.4.7
 ENV NGXDEVELKIT_VERSION=0.3.1
 ENV NGXLUA_VERSION=0.10.25
@@ -36,7 +36,7 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
 RUN build_pkgs="alpine-sdk apr-dev apr-util-dev autoconf automake binutils-gold curl curl-dev g++ gcc geoip-dev git gnupg icu-dev libcurl libffi-dev libjpeg-turbo-dev libstdc++ libtool libxml2-dev linux-headers lmdb-dev m4 make openssh-client pcre-dev pcre2-dev perl pkgconf wget yajl-dev zlib-dev" && \
   runtime_pkgs="ca-certificates pcre apr-util libjpeg-turbo icu icu-libs yajl lua geoip libxml2 lua5.3-maxminddb libffi" && \
   apk add --update --no-cache ${build_pkgs} ${runtime_pkgs} && \
-  apl add tar && \
+  apk add tar && \
   mkdir -p /src /var/log/nginx /run/nginx /var/cache/nginx && \
   addgroup nginx && \
   adduser -s /usr/sbin/nologin -G nginx -D nginx && \
