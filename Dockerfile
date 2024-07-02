@@ -1,16 +1,17 @@
 FROM alpine:latest
 
-MAINTAINER Troy Kelly <troy.kelly@really.ai>
+MAINTAINER Stefan Pejcic <stefan@pejcic.rs>
 
-ENV VERSION=1.20.0
-ENV OPENSSL_VERSION=1.1.1k
-ENV LIBPNG_VERSION=1.6.37
-ENV LUAJIT_VERSION=2.0.5
+ENV VERSION=1.27.0
+ENV OPENSSL_VERSION=3.0.14
+ENV LIBPNG_VERSION=1.6.44
+ENV LUAJIT_VERSION=5.4.7
 ENV NGXDEVELKIT_VERSION=0.3.1
-ENV NGXLUA_VERSION=0.10.19
+ENV NGXLUA_VERSION=0.10.25
 ENV MODSECURITY=3
-ENV OWASPCRS_VERSION=3.3.0
+ENV OWASPCRS_VERSION=4.4.0
 ENV PYTHON_VERSION=3.9.0
+
 
 # Build-time metadata as defined at http://label-schema.org
 ARG BUILD_DATE
@@ -48,7 +49,7 @@ RUN build_pkgs="alpine-sdk apr-dev apr-util-dev autoconf automake binutils-gold 
   echo "Fetching LibPNG Source" && \
   wget -qO - http://prdownloads.sourceforge.net/libpng/libpng-${LIBPNG_VERSION}.tar.gz | tar xzf  - -C /src && \
   echo "Fetching LUA Jit Source" && \
-  wget -qO - http://luajit.org/download/LuaJIT-${LUAJIT_VERSION}.tar.gz | tar xzf  - -C /src && \
+  wget -qO - https://www.lua.org/ftp/lua-${LUAJIT_VERSION}.tar.gz | tar xzf  - -C /src && \
   echo "Fetching NGX Devel Kit Source" && \
   wget -qO - https://github.com/vision5/ngx_devel_kit/archive/refs/tags/v${NGXDEVELKIT_VERSION}.tar.gz | tar xzf  - -C /src && \
   echo "Fetching LUA Nginx Source" && \
